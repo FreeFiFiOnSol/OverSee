@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unistition - Mystical Unicode Sigil Translator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #9b59b6;
+            --secondary-color: #3498db;
+            --background-dark: #0a0a15;
+            --text-light: #e4e4e4;
+            --mystical-gradient: linear-gradient(135deg, #1a1025, #2c3e50, #9b59b6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--background-dark);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(155, 89, 182, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 85% 15%, rgba(52, 152, 219, 0.1) 0%, transparent 55%),
+                url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="50" cy="50" r="1" fill="%239b59b6" fill-opacity="0.1"/%3E%3C/svg%3E');
+            color: var(--text-light);
+            font-family: 'Spectral', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(155, 89, 182, 0.03) 0%, transparent 15%),
+                radial-gradient(circle at 90% 80%, rgba(52, 152, 219, 0.03) 0%, transparent 15%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 5%);
+            animation: sparkle 10s infinite linear;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #b668d9, #4fa7e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+
+        h2 {
+            font-family: 'Spectral', serif;
+            font-size: 1.2rem;
+            color: #a29bfe;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(162, 155, 254, 0.5);
+        }
+
+        .translator {
+            background: rgba(20, 20, 35, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3),
+                        0 0 20px rgba(155, 89, 182, 0.2);
+            border: 1px solid rgba(155, 89, 182, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .translator::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #9b59b6, #3498db, #9b59b6);
+            z-index: -1;
+            border-radius: 16px;
+            animation: borderGlow 3s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .input-section, .output-section {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 1rem;
+            color: #a29bfe;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        textarea, .output-box {
+            width: calc(100% - 2rem);
+            padding: 1rem;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            border-radius: 10px;
+            background: rgba(10, 10, 20, 0.8);
+            color: var(--text-light);
+            font-family: 'Spectral', serif;
+            font-size: 1.5rem;
+            resize: vertical;
+            min-height: 100px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .output-box {
+            font-size: 2rem;
+            text-align: center;
+            padding: 2rem;
+            text-shadow: 0 0 10px rgba(155, 89, 182, 0.5),
+                         0 0 20px rgba(155, 89, 182, 0.3);
+            animation: outputGlow 2s ease-in-out infinite alternate;
+        }
+
+        textarea:focus {
+            border-color: rgba(155, 89, 182, 0.6);
+            box-shadow: 0 0 15px rgba(155, 89, 182, 0.2);
+            outline: none;
+        }
+
+        .translate-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--mystical-gradient);
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+            box-shadow: 0 2px 10px rgba(155, 89, 182, 0.3);
+            width: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .translate-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: buttonShine 3s infinite;
+        }
+
+        .translate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.5);
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.2; }
+        }
+
+        @keyframes buttonShine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 20px rgba(155, 89, 182, 0.5),
+                           0 0 30px rgba(155, 89, 182, 0.3),
+                           0 0 40px rgba(155, 89, 182, 0.1);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(155, 89, 182, 0.8),
+                           0 0 40px rgba(155, 89, 182, 0.5),
+                           0 0 50px rgba(155, 89, 182, 0.3);
+            }
+        }
+
+        @keyframes outputGlow {
+            from {
+                text-shadow: 0 0 10px rgba(155, 89, 182, 0.5),
+                            0 0 20px rgba(155, 89, 182, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(155, 89, 182, 0.8),
+                            0 0 30px rgba(155, 89, 182, 0.5),
+                            0 0 45px rgba(155, 89, 182, 0.3);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 1rem auto;
+            }
+            
+            .translator {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            textarea, .output-box {
+                width: calc(100% - 1rem);
+                padding: 0.5rem;
+            }
+        }
+
+        .magical-particle {
+            position: fixed;
+            pointer-events: none;
+            width: 4px;
+            height: 4px;
+            background: rgba(155, 89, 182, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-magic"></i> Unistition</h1>
+        <h2>✧ Mystical Unicode Sigil Translator ✧</h2>
+
+        <div class="translator">
+            <div class="input-section">
+                <label for="input">⊱ Enter Unicode:</label>
+                <textarea id="input" placeholder="Enter Unicode (e.g., 2764 for ❤)"></textarea>
+            </div>
+
+            <button id="translateBtn" class="translate-btn">
+                <i class="fas fa-star"></i> Translate
+            </button>
+
+            <div class="output-section">
+                <label for="output">⊱ Sigil Output:</label>
+                <div id="output" class="output-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create magical floating particles
+        function createParticles() {
+            for(let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'magical-particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

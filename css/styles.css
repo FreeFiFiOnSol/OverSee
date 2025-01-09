@@ -1,0 +1,223 @@
+/* Mystical theme styles */
+:root {
+    --dark-bg: #0a0a15;
+    --mystical-purple: #4a0063;
+    --mystical-blue: #000833;
+    --crystal-glow: #9d65ff;
+    --text-glow: #b088ff;
+}
+
+/* Animated stars background */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #0a0a15 0%, #000000 100%);
+    z-index: -1;
+}
+
+.stars::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    animation: twinkle 8s infinite linear;
+    opacity: 0.3;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.3; }
+}
+
+body {
+    font-family: 'Noto Sans', Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    background: var(--dark-bg);
+    padding: 20px;
+    color: #fff;
+    margin: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(10, 10, 21, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(157, 101, 255, 0.2);
+    border: 1px solid rgba(157, 101, 255, 0.1);
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px var(--text-glow);
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    color: var(--crystal-glow);
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--crystal-glow);
+}
+
+.crystal-divider {
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--crystal-glow) 50%, 
+        transparent 100%);
+    margin: 20px 0;
+    opacity: 0.5;
+}
+
+.translate-btn {
+    display: block;
+    width: 200px;
+    margin: 15px auto;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, var(--mystical-purple), var(--mystical-blue));
+    color: white;
+    box-shadow: 0 0 15px rgba(157, 101, 255, 0.3);
+    font-family: 'Cinzel', serif;
+}
+
+.translate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(157, 101, 255, 0.5);
+}
+
+.input-section,
+.output-section {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--crystal-glow);
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', serif;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(157, 101, 255, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #fff;
+    resize: none;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--crystal-glow);
+    box-shadow: 0 0 15px rgba(157, 101, 255, 0.2);
+}
+
+.output-box {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid rgba(157, 101, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    text-shadow: 0 0 10px var(--text-glow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.output-box:hover {
+    box-shadow: 0 0 20px rgba(157, 101, 255, 0.3);
+}
+
+.input-info,
+.output-info {
+    font-size: 0.9em;
+    color: rgba(157, 101, 255, 0.8);
+    text-align: center;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.copy-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(157, 101, 255, 0.2);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(157, 101, 255, 0.3);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .translate-btn {
+        width: 100%;
+    }
+}
+
+
+
+
